@@ -16,8 +16,8 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.rule.ActivityTestRule;
 
 import com.mytaxi.android_demo.IdlingResources.LoginButtonIdlingResource;
-import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
+import com.mytaxi.android_demo.activities.MainActivity;
 
 import android.view.View;
 
@@ -39,6 +39,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class LoginTestTaskNegativeScenario {
 
     private IdlingResource snackbarIdlingResource;
+
+    @Rule
+    public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Rule
     public ActivityTestRule<AuthenticationActivity> mActivityTestRule
@@ -136,10 +139,12 @@ public class LoginTestTaskNegativeScenario {
         onView(withId(R.id.edt_password)).perform(typeText(Constants.SOME_INVALID_TEXT), closeSoftKeyboard());  // enter in password field & close keyboard
 
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
+
+
 
         checkSnackBarDisplayedWithMessage(withText(R.string.message_login_fail));                 // message to be matched with "Login failed" message as per String resource file
 

@@ -1,7 +1,5 @@
 package com.mytaxi.android_demo;
 
-
-import android.os.SystemClock;
 import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.DrawerActions;
@@ -87,7 +85,7 @@ public class LoginTestTaskPositiveScenario {
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 
         onView(withId(R.id.textSearch))
-                .check(matches(isDisplayed()));                               //checks if driver serach field is displayed on view
+                .check(matches(isDisplayed()));                               //checks if driver search field is displayed on view
 
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
