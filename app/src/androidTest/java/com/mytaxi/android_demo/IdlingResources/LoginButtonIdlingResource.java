@@ -15,7 +15,7 @@ import com.mytaxi.android_demo.R;
 /*
    - This class defines IdlingResource for Snackbar error message display
 */
-public class SnackbarIdlingResource implements IdlingResource {
+public class LoginButtonIdlingResource implements IdlingResource {
     private ResourceCallback resourceCallback;
     private boolean isIdle;
 

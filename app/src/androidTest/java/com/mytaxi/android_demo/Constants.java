@@ -11,7 +11,7 @@ public class Constants {
     final static String STRING_TO_BE_SEARCHED = "sa";
     final static String DRIVER_NAME = "Sarah Scott";
     final static String SOME_INVALID_TEXT = "dasd65sa576d";
-    final static int POLLING_EVERY_TIMEOUT = 2000;               //IN MILLIISECONDS
+    final static int POLLING_EVERY_TIMEOUT = 0;               //IN MILLIISECONDS
 
 
 }

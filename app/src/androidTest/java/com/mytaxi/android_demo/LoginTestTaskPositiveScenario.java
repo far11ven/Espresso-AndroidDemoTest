@@ -9,7 +9,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.Gravity;
-import com.mytaxi.android_demo.IdlingResources.SnackbarIdlingResource;
+import com.mytaxi.android_demo.IdlingResources.LoginButtonIdlingResource;
 import com.mytaxi.android_demo.IdlingResources.MainActivityIdlingResource;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
 import com.mytaxi.android_demo.activities.MainActivity;
@@ -27,8 +27,6 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.DrawerMatchers.isClosed;
 import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -41,7 +39,7 @@ import static org.hamcrest.CoreMatchers.not;
 public class LoginTestTaskPositiveScenario {
 
     private IdlingResource mainActivityIdlingResource;
-	private IdlingResource snackbarIdlingResource;
+	private IdlingResource loginBtnIdlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -59,7 +57,7 @@ public class LoginTestTaskPositiveScenario {
     */
     @Before
     public void setUpBeforeTest() {
-		snackbarIdlingResource = new SnackbarIdlingResource();
+        loginBtnIdlingResource = new LoginButtonIdlingResource();
         mainActivityIdlingResource = new MainActivityIdlingResource();
         Intents.init();                                                 //initialising intents
 
@@ -90,11 +88,11 @@ public class LoginTestTaskPositiveScenario {
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
 		
-		IdlingRegistry.getInstance().register(snackbarIdlingResource);
+		IdlingRegistry.getInstance().register(loginBtnIdlingResource);
 
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 		
-		IdlingRegistry.getInstance().unregister(snackbarIdlingResource);
+		IdlingRegistry.getInstance().unregister(loginBtnIdlingResource);
 
         onView(withId(R.id.textSearch))
                 .check(matches(isDisplayed()));                               //checks if driver serach field is displayed on view

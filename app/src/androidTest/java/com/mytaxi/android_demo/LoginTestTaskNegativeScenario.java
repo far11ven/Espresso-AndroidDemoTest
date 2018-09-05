@@ -15,12 +15,10 @@ import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.rule.ActivityTestRule;
 
-import com.mytaxi.android_demo.IdlingResources.SnackbarIdlingResource;
+import com.mytaxi.android_demo.IdlingResources.LoginButtonIdlingResource;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
 
-import android.support.test.espresso.contrib.DrawerActions;
-import android.view.Gravity;
 import android.view.View;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -61,7 +59,7 @@ public class LoginTestTaskNegativeScenario {
     */
     @Before
     public void setUpBeforeTest(){
-        snackbarIdlingResource = new SnackbarIdlingResource();
+        snackbarIdlingResource = new LoginButtonIdlingResource();
 
     }
 
