@@ -53,7 +53,7 @@ public class MainActivityIdlingResource implements IdlingResource {
 
     private void idlingCheckTimeOut()
     {
-        SystemClock.sleep(500);      //Wait for 500ms to toll for current activity
+        SystemClock.sleep(1000);      //Wait for 500ms to toll for current activity
     }
 
 }
