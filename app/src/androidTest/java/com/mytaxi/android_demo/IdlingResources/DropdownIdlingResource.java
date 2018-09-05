@@ -1,7 +1,6 @@
 package com.mytaxi.android_demo.IdlingResources;
 
 import android.app.Activity;
-import android.os.SystemClock;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.core.internal.deps.guava.collect.Iterables;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;

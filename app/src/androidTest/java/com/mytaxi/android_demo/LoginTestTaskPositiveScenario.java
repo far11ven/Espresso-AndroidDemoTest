@@ -2,18 +2,13 @@ package com.mytaxi.android_demo;
 
 
 import android.support.test.espresso.contrib.DrawerActions;
-import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.Gravity;
-import com.mytaxi.android_demo.IdlingResources.LoginButtonIdlingResource;
-import com.mytaxi.android_demo.IdlingResources.MainActivityIdlingResource;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
 import com.mytaxi.android_demo.activities.MainActivity;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
