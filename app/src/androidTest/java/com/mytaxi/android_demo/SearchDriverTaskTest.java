@@ -39,7 +39,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MyTaxiTasksTest {
+public class SearchDriverTaskTest {
 
     private IdlingResource mainActivityIdlingResource;
     private IdlingResource driverSearchIdlingResource;
@@ -67,14 +67,15 @@ public class MyTaxiTasksTest {
 
     }
 
-    /* This is a Test method for TASK#1 [Positive scenario]
+    /* This is a Test method for TASK#2
        - Logs in with the valid credentials
-       - Waits for MainActivity to load
-       - Opens the Left side drawer
-       - Verifies username matches the one provided on Login screen
+       - in driver search field, searches for text "sa"
+       - Selects 2nd result by name
+       - Verifies driver name text on DRIVER PROFILE
+       - Clicks on CALL button
     */
     @Test
-    public void performLoginTestWithValidCredentials() {
+    public void performCallADriverTest(){
 
         //checking if Username input field is present & enabled before entering text
         onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
@@ -95,11 +96,14 @@ public class MyTaxiTasksTest {
 
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 
+        onView(withId(R.id.textSearch))
+                .check(matches(isDisplayed()));                               //checks if driver search field is displayed on view
+
+        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
+
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                 .perform(DrawerActions.open());         // open drawer
-
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
 
         // Verify that logged in USER is same for which credentials were provided during login

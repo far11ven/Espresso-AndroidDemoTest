@@ -41,10 +41,6 @@ public class LoginTestTaskNegativeScenario {
     private IdlingResource snackbarIdlingResource;
 
     @Rule
-    public ActivityTestRule<MainActivity> mainActivityTestRule
-            = new ActivityTestRule<>(MainActivity.class);                       // defining main activity rule
-
-    @Rule
     public ActivityTestRule<AuthenticationActivity> mActivityTestRule
             = new ActivityTestRule<>(AuthenticationActivity.class);             // defining Authentication activity rule
 
@@ -112,7 +108,7 @@ public class LoginTestTaskNegativeScenario {
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
 
-        checkSnackBarDisplayedWithMessage(withText(R.string.message_login_fail));    // message to be matched with "Login failed" message as per String resource file
+        checkSnackBarDisplayedWithMessage(withText(R.string.message_login_fail));                 // message to be matched with "Login failed" message as per String resource file
 
         IdlingRegistry.getInstance().unregister(snackbarIdlingResource);             // ending snackbar wait
 
@@ -125,11 +121,12 @@ public class LoginTestTaskNegativeScenario {
     */
     @Test
     public void performLoginTestWithInValidPassword(){
+
         //checking if Username input field is present & enabled before entering text
         onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
         onView(withId(R.id.edt_username)).check(matches(isEnabled()));
         onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME ));   // enter in username field
+        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));   // enter in username field
 
 
         //checking if password input field is present & enabled before entering text
@@ -138,18 +135,16 @@ public class LoginTestTaskNegativeScenario {
         onView(withId(R.id.edt_password)).perform(click()) ;
         onView(withId(R.id.edt_password)).perform(typeText(Constants.SOME_INVALID_TEXT), closeSoftKeyboard());  // enter in password field & close keyboard
 
-
-        // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
+        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
-
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
 
-        checkSnackBarDisplayedWithMessage(withText(R.string.message_login_fail));    // message to be matched with "Login failed" message as per String resource file
+        checkSnackBarDisplayedWithMessage(withText(R.string.message_login_fail));                 // message to be matched with "Login failed" message as per String resource file
 
         IdlingRegistry.getInstance().unregister(snackbarIdlingResource);             // ending snackbar wait
+
 
     }
 

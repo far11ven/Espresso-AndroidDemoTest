@@ -28,10 +28,10 @@ public class LoginButtonIdlingResource implements IdlingResource {
     @Override
     public boolean isIdleNow() {
         if (isIdle) return true;
+        PollingService.idlingCheckTimeOut();
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        PollingService.idlingCheckTimeOut();
 
         Button loginBtn = activity.findViewById(R.id.btn_login);
         isIdle = !loginBtn.isFocused();
@@ -39,6 +39,7 @@ public class LoginButtonIdlingResource implements IdlingResource {
         if (isIdle) {
             resourceCallback.onTransitionToIdle();
         }
+
         return isIdle;
     }
 
