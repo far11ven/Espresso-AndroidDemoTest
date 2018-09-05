@@ -81,13 +81,16 @@ public class LoginTestTaskPositiveScenario {
         onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
 
 
-        IdlingRegistry.getInstance().register(mainActivityIdlingResource);
+
 
         // to check if LOGIN button is displayed and can be clicked
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
 
         SystemClock.sleep(3000);
+
+        IdlingRegistry.getInstance().register(mainActivityIdlingResource);
+
         onView(withId(R.id.textSearch))
                 .check(matches(isDisplayed()));                               //checks if driver serach field is displayed on view
 
