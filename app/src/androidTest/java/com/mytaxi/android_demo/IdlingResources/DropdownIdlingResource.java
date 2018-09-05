@@ -28,7 +28,6 @@ public class DropdownIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        PollingService.idlingCheckTimeOut();
 
         isIdle = activity.findViewById(R.id.searchContainer).isShown();
 

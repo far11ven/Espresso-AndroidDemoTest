@@ -28,7 +28,6 @@ public class MainActivityIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        PollingService.idlingCheckTimeOut();
         
         String ActivityClassName = activity.getLocalClassName();
 
