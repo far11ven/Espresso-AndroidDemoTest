@@ -65,11 +65,12 @@ public class LoginTestTaskPositiveScenario {
     */
     @Test
     public void performLoginTestWithValidCredentials(){
+
         //checking if Username input field is present & enabled before entering text
         onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
         onView(withId(R.id.edt_username)).check(matches(isEnabled()));
         onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));  //enter in username field
+        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));   // enter in username
 
         //checking if password input field is present & enabled before entering text
         onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
@@ -80,26 +81,22 @@ public class LoginTestTaskPositiveScenario {
 
         // to check if LOGIN button is displayed and can be clicked
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
 
+        //Waiting for MainActivity to open up
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
-
-        onView(withId(R.id.textSearch))
-                .check(matches(isDisplayed()));                               //checks if driver search field is displayed on view
 
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                 .perform(DrawerActions.open());         // open drawer
 
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);
-
+        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);   // ending wait for MainActivity
 
         // Verify that logged in USER is same for which credentials were provided during login
         onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));
 
         onView(withId(R.id.drawer_layout))
-                .perform(DrawerActions.close());       // closes the left drawer
-
+                .perform(DrawerActions.close());       // close drawer
 
     }
 

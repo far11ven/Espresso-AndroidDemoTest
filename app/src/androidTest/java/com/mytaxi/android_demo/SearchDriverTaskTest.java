@@ -75,7 +75,7 @@ public class SearchDriverTaskTest {
        - Clicks on CALL button
     */
     @Test
-    public void performCallADriverTest(){
+    public void performSearchAndCallADriverTest(){
 
         //checking if Username input field is present & enabled before entering text
         onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
