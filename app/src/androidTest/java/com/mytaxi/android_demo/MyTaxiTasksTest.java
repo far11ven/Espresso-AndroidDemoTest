@@ -95,14 +95,11 @@ public class MyTaxiTasksTest {
 
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 
-        onView(withId(R.id.textSearch))
-                .check(matches(isDisplayed()));                               //checks if driver serach field is displayed on view
-
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
-
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                 .perform(DrawerActions.open());         // open drawer
+
+        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
 
         // Verify that logged in USER is same for which credentials were provided during login
@@ -110,19 +107,6 @@ public class MyTaxiTasksTest {
 
         onView(withId(R.id.drawer_layout))
                 .perform(DrawerActions.close());       // closes the left drawer
-
-    }
-
-
-    /* This is a Test method for TASK#2
-       - Logs in with the valid credentials
-       - in driver search field, searches for text "sa"
-       - Selects 2nd result by name
-       - Verifies driver name text on DRIVER PROFILE
-       - Clicks on CALL button
-    */
-    @Test
-    public void performCallADriverTest(){
 
         onView(withId(R.id.textSearch)).check(matches(isEnabled())).perform(click());        //check if enabled & click to search driver
         onView(withId(R.id.textSearch)).perform(typeText(Constants.STRING_TO_BE_SEARCHED)) ; //enter text "sa" search text
