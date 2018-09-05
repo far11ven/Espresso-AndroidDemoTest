@@ -1,14 +1,20 @@
 package com.mytaxi.android_demo;
 
 
+import android.support.test.espresso.IdlingRegistry;
+import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.Gravity;
+
+import com.mytaxi.android_demo.IdlingResources.LoginButtonIdlingResource;
+import com.mytaxi.android_demo.IdlingResources.MainActivityIdlingResource;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
 import com.mytaxi.android_demo.activities.MainActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +35,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class LoginTestTaskPositiveScenario {
 
-
+    private IdlingResource mainActivityIdlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -40,6 +46,16 @@ public class LoginTestTaskPositiveScenario {
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(
             android.Manifest.permission.ACCESS_FINE_LOCATION);                  // granting permission for user map location access during test
+
+
+    /* This is a setUp method() before running a test
+       - Sets up IdlingResources before each test
+    */
+    @Before
+    public void setUpBeforeTest(){
+        mainActivityIdlingResource = new MainActivityIdlingResource();
+
+    }
 
 
 
@@ -64,6 +80,8 @@ public class LoginTestTaskPositiveScenario {
         onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
 
 
+        IdlingRegistry.getInstance().register(mainActivityIdlingResource);
+
         // to check if LOGIN button is displayed and can be clicked
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
@@ -75,6 +93,8 @@ public class LoginTestTaskPositiveScenario {
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                 .perform(DrawerActions.open());         // open drawer
+
+        IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 
 
         // Verify that logged in USER is same for which credentials were provided during login
