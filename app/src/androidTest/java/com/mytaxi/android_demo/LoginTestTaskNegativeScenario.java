@@ -78,7 +78,7 @@ public class LoginTestTaskNegativeScenario {
         onView(withId(R.id.edt_password)).check(matches(isDisplayed()));     //checking if password input field is present
 
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have value]
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have values]
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
