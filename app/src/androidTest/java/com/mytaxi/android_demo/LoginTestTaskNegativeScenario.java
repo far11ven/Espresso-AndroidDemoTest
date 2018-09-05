@@ -15,7 +15,6 @@ import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.rule.ActivityTestRule;
 
-import com.mytaxi.android_demo.IdlingResources.MainActivityIdlingResource;
 import com.mytaxi.android_demo.IdlingResources.SnackbarIdlingResource;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
@@ -40,10 +39,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LoginTestTask {
+public class LoginTestTaskNegativeScenario {
 
     private IdlingResource snackbarIdlingResource;
-    private IdlingResource mainActivityIdlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivityTestRule
@@ -64,50 +62,6 @@ public class LoginTestTask {
     @Before
     public void setUpBeforeTest(){
         snackbarIdlingResource = new SnackbarIdlingResource();
-        mainActivityIdlingResource = new MainActivityIdlingResource();
-
-    }
-
-    /* This is a Test method for TASK#1 [Positive scenario]
-       - Logs in with the valid credentials
-       - Waits for MainActivity to load
-       - Opens the Left side drawer
-       - Verifies username matches the one provided on Login screen
-    */
-    @Test
-    public void performLoginTestWithValidCredentials(){
-
-        //checking if Username input field is present & enabled before entering text
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));   // enter in username
-
-        //checking if password input field is present & enabled before entering text
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
-
-
-        // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
-
-        //Waiting for MainActivity to open up
-        IdlingRegistry.getInstance().register(mainActivityIdlingResource);
-
-        onView(withId(R.id.drawer_layout))
-                .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
-                .perform(DrawerActions.open());         // open drawer
-
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);   // ending wait for MainActivity
-
-        // Verify that logged in USER is same for which credentials were provided during login
-        onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));
-
-        onView(withId(R.id.drawer_layout))
-                .perform(DrawerActions.close());       // close drawer
 
     }
 
@@ -208,7 +162,6 @@ public class LoginTestTask {
     @After
     public void tearDownAfterTest() {
 
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);
         IdlingRegistry.getInstance().unregister(snackbarIdlingResource);
 
     }
