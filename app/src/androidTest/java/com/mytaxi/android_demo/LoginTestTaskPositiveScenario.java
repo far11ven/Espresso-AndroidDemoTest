@@ -9,7 +9,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.Gravity;
-
+import com.mytaxi.android_demo.IdlingResources.SnackbarIdlingResource;
 import com.mytaxi.android_demo.IdlingResources.MainActivityIdlingResource;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
 import com.mytaxi.android_demo.activities.MainActivity;
@@ -41,6 +41,7 @@ import static org.hamcrest.CoreMatchers.not;
 public class LoginTestTaskPositiveScenario {
 
     private IdlingResource mainActivityIdlingResource;
+	private IdlingResource snackbarIdlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -58,7 +59,7 @@ public class LoginTestTaskPositiveScenario {
     */
     @Before
     public void setUpBeforeTest() {
-
+		snackbarIdlingResource = new SnackbarIdlingResource();
         mainActivityIdlingResource = new MainActivityIdlingResource();
         Intents.init();                                                 //initialising intents
 
@@ -88,8 +89,12 @@ public class LoginTestTaskPositiveScenario {
         // to check if LOGIN button is displayed and can be clicked
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
+		
+		IdlingRegistry.getInstance().register(snackbarIdlingResource);
 
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
+		
+		IdlingRegistry.getInstance().unregister(snackbarIdlingResource);
 
         onView(withId(R.id.textSearch))
                 .check(matches(isDisplayed()));                               //checks if driver serach field is displayed on view
