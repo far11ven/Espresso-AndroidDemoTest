@@ -90,6 +90,8 @@ public class LoginTestTaskPositiveScenario {
             // to check if LOGIN button is displayed and can be clicked
             onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
             onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
+
+            mainActivityTestRule.getActivity();
     
             //Waiting for MainActivity to open up
             IdlingRegistry.getInstance().register(mainActivityIdlingResource);
