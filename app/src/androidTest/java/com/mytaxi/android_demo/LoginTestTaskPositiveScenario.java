@@ -1,6 +1,7 @@
 package com.mytaxi.android_demo;
 
 
+import android.os.SystemClock;
 import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.DrawerActions;
@@ -86,7 +87,7 @@ public class LoginTestTaskPositiveScenario {
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
 
-
+        SystemClock.sleep(3000);
         onView(withId(R.id.textSearch))
                 .check(matches(isDisplayed()));                               //checks if driver serach field is displayed on view
 
