@@ -90,18 +90,19 @@ public class LoginTestTaskPositiveScenario {
             // to check if LOGIN button is displayed and can be clicked
             onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
             onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
-
-            mainActivityTestRule.getActivity();
     
             //Waiting for MainActivity to open up
             IdlingRegistry.getInstance().register(mainActivityIdlingResource);
+
+            onView(withId(R.id.textSearch))
+                    .check(matches(isDisplayed()));
+
+            IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
     
             onView(withId(R.id.drawer_layout))
                     .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                     .perform(DrawerActions.open());         // open drawer
     
-
-            IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
             // Verify that logged in USER is same for which credentials were provided during login
             onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));

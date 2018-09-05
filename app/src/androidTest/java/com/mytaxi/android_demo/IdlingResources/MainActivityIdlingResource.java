@@ -30,7 +30,7 @@ public class MainActivityIdlingResource implements IdlingResource {
         
         String ActivityClassName = activity.getLocalClassName();
 
-        isIdle = ActivityClassName.contains("MainActivity");              //returns 'true' if MainActivity has opened up
+        isIdle = ActivityClassName.contains("MainActivity");            //returns 'true' if MainActivity has opened up & is present on view
 
         if (isIdle) {
             resourceCallback.onTransitionToIdle();
