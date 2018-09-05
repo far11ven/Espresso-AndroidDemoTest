@@ -7,6 +7,8 @@ import android.support.test.espresso.core.internal.deps.guava.collect.Iterables;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 import android.widget.Button;
+
+import com.mytaxi.android_demo.PollingService;
 import com.mytaxi.android_demo.R;
 
 
@@ -29,7 +31,7 @@ public class SnackbarIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        idlingCheckTimeOut();
+        PollingService.idlingCheckTimeOut();
 
         Button loginBtn = activity.findViewById(R.id.btn_login);
         isIdle = !loginBtn.isFocused();
@@ -53,9 +55,6 @@ public class SnackbarIdlingResource implements IdlingResource {
         return activity[0];
     }
 
-    private void idlingCheckTimeOut()
-    {
-        SystemClock.sleep(1000);      //Wait for 500ms to toll for current activity
-    }
+   
 
 }

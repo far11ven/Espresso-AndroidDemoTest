@@ -7,6 +7,7 @@ import android.support.test.espresso.core.internal.deps.guava.collect.Iterables;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 
+import com.mytaxi.android_demo.PollingService;
 import com.mytaxi.android_demo.R;
 
 /*
@@ -28,7 +29,7 @@ public class DropdownIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        idlingCheckTimeOut();
+        PollingService.idlingCheckTimeOut();
 
         isIdle = activity.findViewById(R.id.searchContainer).isShown();
 
@@ -51,9 +52,5 @@ public class DropdownIdlingResource implements IdlingResource {
         return activity[0];
     }
 
-    private void idlingCheckTimeOut()
-    {
-        SystemClock.sleep(1000);      //Wait for 500ms to toll for current activity
-    }
 
 }

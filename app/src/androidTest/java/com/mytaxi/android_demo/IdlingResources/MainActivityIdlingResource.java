@@ -1,5 +1,7 @@
 package com.mytaxi.android_demo.IdlingResources;
 
+import com.mytaxi.android_demo.PollingService;
+
 import android.app.Activity;
 import android.os.SystemClock;
 import android.support.test.espresso.IdlingResource;
@@ -27,7 +29,7 @@ public class MainActivityIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        idlingCheckTimeOut();
+        PollingService.idlingCheckTimeOut();
         
         String ActivityClassName = activity.getLocalClassName();
 
@@ -49,11 +51,6 @@ public class MainActivityIdlingResource implements IdlingResource {
         java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
         activity[0] = Iterables.getOnlyElement(activities);
         return activity[0];
-    }
-
-    private void idlingCheckTimeOut()
-    {
-        SystemClock.sleep(1000);      //Wait for 500ms to toll for current activity
     }
 
 }
