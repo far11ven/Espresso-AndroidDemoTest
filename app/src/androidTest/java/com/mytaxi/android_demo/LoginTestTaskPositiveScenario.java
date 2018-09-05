@@ -61,7 +61,7 @@ public class LoginTestTaskPositiveScenario {
     */
     @Before
     public void setUpBeforeTest(){
-        mainActivityIdlingResource = new MainActivityIdlingResource();
+            mainActivityIdlingResource = new MainActivityIdlingResource();
 
     }
 
@@ -74,37 +74,38 @@ public class LoginTestTaskPositiveScenario {
     @Test
     public void performLoginTestWithValidCredentials(){
 
-        //checking if Username input field is present & enabled before entering text
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));   // enter in username
+            //checking if Username input field is present & enabled before entering text
+            onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
+            onView(withId(R.id.edt_username)).check(matches(isEnabled()));
+            onView(withId(R.id.edt_username)).perform(click()) ;
+            onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));  //enter in username field
+    
+            //checking if password input field is present & enabled before entering text
+            onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
+            onView(withId(R.id.edt_password)).check(matches(isEnabled()));
+            onView(withId(R.id.edt_password)).perform(click()) ;
+            onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
+    
+    
+            // to check if LOGIN button is displayed and can be clicked
+            onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
+            onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
+    
+            //Waiting for MainActivity to open up
+            IdlingRegistry.getInstance().register(mainActivityIdlingResource);
+    
+            onView(withId(R.id.drawer_layout))
+                    .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
+                    .perform(DrawerActions.open());         // open drawer
+    
 
-        //checking if password input field is present & enabled before entering text
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
+            IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
-
-        // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
-
-        //Waiting for MainActivity to open up
-        IdlingRegistry.getInstance().register(mainActivityIdlingResource);
-
-        onView(withId(R.id.drawer_layout))
-                .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
-                .perform(DrawerActions.open());         // open drawer
-
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);   // ending wait for MainActivity
-
-        // Verify that logged in USER is same for which credentials were provided during login
-        onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));
-
-        onView(withId(R.id.drawer_layout))
-                .perform(DrawerActions.close());       // close drawer
+            // Verify that logged in USER is same for which credentials were provided during login
+            onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));
+            
+             onView(withId(R.id.drawer_layout))
+                     .perform(DrawerActions.close());       // closes the left drawer
 
     }
 
@@ -115,7 +116,7 @@ public class LoginTestTaskPositiveScenario {
     @After
     public void tearDownAfterTest() {
 
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);
+           IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);
 
     }
 
