@@ -27,6 +27,7 @@ public class MainActivityIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
+        idlingCheckTimeOut();
         
         String ActivityClassName = activity.getLocalClassName();
 
@@ -48,6 +49,11 @@ public class MainActivityIdlingResource implements IdlingResource {
         java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
         activity[0] = Iterables.getOnlyElement(activities);
         return activity[0];
+    }
+
+    private void idlingCheckTimeOut()
+    {
+        SystemClock.sleep(500);      //Wait for 500ms to toll for current activity
     }
 
 }
