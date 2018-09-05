@@ -38,7 +38,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 
 @RunWith(AndroidJUnit4.class)
-public class SearchDriverTestTask {
+public class LoginTestTaskPositiveScenario {
 
     private IdlingResource mainActivityIdlingResource;
 
