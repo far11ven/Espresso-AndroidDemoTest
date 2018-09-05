@@ -95,7 +95,7 @@ public class LoginTestTaskPositiveScenario {
             IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 
             onView(withId(R.id.textSearch))
-                    .check(matches(isDisplayed()));
+                .check(matches(isDisplayed()));                                   //checks ifdriver serach field is displayed on view
 
             IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
     
