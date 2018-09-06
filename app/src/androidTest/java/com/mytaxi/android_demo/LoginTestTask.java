@@ -26,6 +26,8 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.view.Gravity;
 import android.view.View;
 
+import static com.mytaxi.android_demo.ObjectStore;
+
 import static org.junit.Assert.assertFalse;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -81,21 +83,21 @@ public class LoginTestTask {
     public void performLoginTestWithValidCredentials(){
 
         //checking if Username input field is present & enabled before entering text
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));   // enter in username
+        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.tv_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.tv_USERNAME).perform(click()) ;
+        onView(ObjectStore.tv_USERNAME).perform(typeText(Constants.USER_NAME));   // enter in username
 
         //checking if password input field is present & enabled before entering text
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
+        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.tv_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.tv_PASSWORD).perform(click()) ;
+        onView(ObjectStore.tv_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
 
 
         // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
+        onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable()));
+        onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN button to submit
 
         assertFalse("Login Failure message is still displayed", isPresent(withText((R.string.message_login_fail))));  //Returns 'true' if message is dispalyed
 
@@ -109,12 +111,12 @@ public class LoginTestTask {
     @Test
     public void performLoginTestWithBlankValues(){
 
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));  //checking if username input field is present
+        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));  //checking if username input field is present
 
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));     //checking if password input field is present
+        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));     //checking if password input field is present
 
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have value]
+        onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
+        onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have value]
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
@@ -133,20 +135,20 @@ public class LoginTestTask {
     @Test
     public void performLoginTestWithInValidUsername(){
         //checking if Username input field is present & enabled before entering text
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.SOME_INVALID_TEXT));   // enter in username field
+        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.tv_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.tv_USERNAME).perform(click()) ;
+        onView(ObjectStore.tv_USERNAME).perform(typeText(Constants.SOME_INVALID_TEXT));   // enter in username field
 
 
         //checking if password input field is present & enabled before entering text
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  // enter in password field & close keyboard
+        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.tv_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.tv_PASSWORD).perform(click()) ;
+        onView(ObjectStore.tv_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  // enter in password field & close keyboard
 
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
+        onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
+        onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN button to submit
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
@@ -165,22 +167,22 @@ public class LoginTestTask {
     @Test
     public void performLoginTestWithInValidPassword(){
         //checking if Username input field is present & enabled before entering text
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME ));   // enter in username field
+        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.tv_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.tv_USERNAME).perform(click()) ;
+        onView(ObjectStore.tv_USERNAME).perform(typeText(Constants.USER_NAME ));   // enter in username field
 
 
         //checking if password input field is present & enabled before entering text
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password)).perform(typeText(Constants.SOME_INVALID_TEXT), closeSoftKeyboard());  // enter in password field & close keyboard
+        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.tv_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.tv_PASSWORD).perform(click()) ;
+        onView(ObjectStore.tv_PASSWORD).perform(typeText(Constants.SOME_INVALID_TEXT), closeSoftKeyboard());  // enter in password field & close keyboard
 
 
         // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
+        onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable()));
+        onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN button to submit
 
 
         //wait for Snackbar to open up
