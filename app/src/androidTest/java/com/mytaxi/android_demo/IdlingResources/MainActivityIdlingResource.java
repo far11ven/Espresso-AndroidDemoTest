@@ -1,7 +1,5 @@
 package com.mytaxi.android_demo.IdlingResources;
 
-import com.mytaxi.android_demo.PollingService;
-
 import android.app.Activity;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.core.internal.deps.guava.collect.Iterables;
@@ -28,10 +26,10 @@ public class MainActivityIdlingResource implements IdlingResource {
 
         Activity activity = getCurrentActivity();
         if (activity == null) return false;
-        
+
         String ActivityClassName = activity.getLocalClassName();
 
-        isIdle = ActivityClassName.contains("MainActivity");            //returns 'true' if MainActivity has opened up & is present on view
+        isIdle = ActivityClassName.contains("MainActivity");              //returns 'true' if MainActivity has opened up
 
         if (isIdle) {
             resourceCallback.onTransitionToIdle();

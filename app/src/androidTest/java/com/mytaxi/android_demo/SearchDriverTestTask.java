@@ -39,7 +39,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 
 @RunWith(AndroidJUnit4.class)
-public class SearchDriverTaskTest {
+public class SearchDriverTestTask {
 
     private IdlingResource mainActivityIdlingResource;
     private IdlingResource driverSearchIdlingResource;
@@ -67,44 +67,42 @@ public class SearchDriverTaskTest {
 
     }
 
-    /* This is a Test method for TASK#2
+    /* This is a Test method for Positive scenario TASK#1 & TASK#2
        - Logs in with the valid credentials
+	   - Opens the Left side drawer
+       - Verifies username matches the one provided on Login screen
        - in driver search field, searches for text "sa"
        - Selects 2nd result by name
        - Verifies driver name text on DRIVER PROFILE
        - Clicks on CALL button
     */
     @Test
-    public void performSearchAndCallADriverTest(){
-
+    public void performLoginAndCallSearchedDriverTest(){
         //checking if Username input field is present & enabled before entering text
         onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
         onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click());
+        onView(withId(R.id.edt_username)).perform(click()) ;
         onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));  //enter in username field
 
         //checking if password input field is present & enabled before entering text
         onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
         onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click());
+        onView(withId(R.id.edt_password)).perform(click()) ;
         onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
 
 
         // to check if LOGIN button is displayed and can be clicked
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()); // click LOGIN to submit
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
 
+        //Waiting for MainActivity to open up
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
-
-        onView(withId(R.id.textSearch))
-                .check(matches(isDisplayed()));                               //checks if driver search field is displayed on view
-
-        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
         onView(withId(R.id.drawer_layout))
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                 .perform(DrawerActions.open());         // open drawer
 
+        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
         // Verify that logged in USER is same for which credentials were provided during login
         onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));
@@ -120,13 +118,14 @@ public class SearchDriverTaskTest {
 
         onView(withId(R.id.searchContainer)).check(matches(isDisplayed()));                  //verify dropdown searchContainer field is displayed on view
 
-        IdlingRegistry.getInstance().unregister(driverSearchIdlingResource);
-
+        
         //check & click if DRIVER NAME is present in dropdown
         onView(withText(Constants.DRIVER_NAME))
                 .inRoot(withDecorView(not(mActivityTestRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()))
                 .perform(click());
+				
+		IdlingRegistry.getInstance().unregister(driverSearchIdlingResource);
 
         //Verify on driver profile screen DRIVER NAME is same as the one selected from dropdown
         onView(withId(R.id.textViewDriverName)).check(matches(withText(Constants.DRIVER_NAME)));

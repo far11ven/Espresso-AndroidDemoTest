@@ -6,7 +6,6 @@ import android.support.test.espresso.core.internal.deps.guava.collect.Iterables;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 
-import com.mytaxi.android_demo.PollingService;
 import com.mytaxi.android_demo.R;
 
 /*
@@ -49,6 +48,5 @@ public class DropdownIdlingResource implements IdlingResource {
         activity[0] = Iterables.getOnlyElement(activities);
         return activity[0];
     }
-
 
 }

@@ -7,25 +7,33 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import android.support.test.filters.LargeTest;
+import android.os.SystemClock;
 
 import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.rule.ActivityTestRule;
 
-import com.mytaxi.android_demo.IdlingResources.LoginButtonIdlingResource;
+
+import com.mytaxi.android_demo.IdlingResources.MainActivityIdlingResource;
+import com.mytaxi.android_demo.IdlingResources.SnackbarIdlingResource;
 import com.mytaxi.android_demo.activities.MainActivity;
 import com.mytaxi.android_demo.activities.AuthenticationActivity;
 
+import android.support.test.espresso.contrib.DrawerActions;
+import android.view.Gravity;
 import android.view.View;
 
+import static org.junit.Assert.assertTrue;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.DrawerMatchers.isClosed;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -36,9 +44,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LoginTestTaskNegativeScenario {
+public class LoginTestTask {
 
     private IdlingResource snackbarIdlingResource;
+    private IdlingResource mainActivityIdlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivityTestRule
@@ -58,7 +67,38 @@ public class LoginTestTaskNegativeScenario {
     */
     @Before
     public void setUpBeforeTest(){
-        snackbarIdlingResource = new LoginButtonIdlingResource();
+        snackbarIdlingResource = new SnackbarIdlingResource();
+        mainActivityIdlingResource = new MainActivityIdlingResource();
+
+    }
+
+    /* This is a Test method for TASK#1 [Positive scenario]
+       - Logs in with the valid credentials
+       - Waits for MainActivity to load
+       - Opens the Left side drawer
+       - Verifies username matches the one provided on Login screen
+    */
+    @Test
+    public void performLoginTestWithValidCredentials(){
+
+        //checking if Username input field is present & enabled before entering text
+        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
+        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
+        onView(withId(R.id.edt_username)).perform(click()) ;
+        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));   // enter in username
+
+        //checking if password input field is present & enabled before entering text
+        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
+        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
+        onView(withId(R.id.edt_password)).perform(click()) ;
+        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
+
+
+        // to check if LOGIN button is displayed and can be clicked
+        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
+
+        assertTrue("Login Failure message is still displayed", isPresent(withText((R.string.message_login_fail))));  //Returns 'true' if message is not dispalyed
 
     }
 
@@ -74,9 +114,8 @@ public class LoginTestTaskNegativeScenario {
 
         onView(withId(R.id.edt_password)).check(matches(isDisplayed()));     //checking if password input field is present
 
-        onView(withId(R.id.btn_login))
-                .check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).perform(click()) ;       // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have value]
+        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have value]
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
@@ -105,18 +144,17 @@ public class LoginTestTaskNegativeScenario {
         onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
         onView(withId(R.id.edt_password)).check(matches(isEnabled()));
         onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password))
-                .perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  // enter in password field & close keyboard
+        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  // enter in password field & close keyboard
 
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).perform(click()) ;                         // click LOGIN button to submit
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
 
         //wait for Snackbar to open up
         IdlingRegistry.getInstance().register(snackbarIdlingResource);
 
         checkSnackBarDisplayedWithMessage(withText(R.string.message_login_fail));    // message to be matched with "Login failed" message as per String resource file
 
-        IdlingRegistry.getInstance().unregister(snackbarIdlingResource);             // ending/un-registering snackbar wait
+        IdlingRegistry.getInstance().unregister(snackbarIdlingResource);             // ending snackbar wait
 
     }
 
@@ -142,9 +180,8 @@ public class LoginTestTaskNegativeScenario {
 
 
         // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login))
-                .check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ;                            // click LOGIN button to submit
+        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
+        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
 
 
         //wait for Snackbar to open up
@@ -162,6 +199,7 @@ public class LoginTestTaskNegativeScenario {
     @After
     public void tearDownAfterTest() {
 
+        IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);
         IdlingRegistry.getInstance().unregister(snackbarIdlingResource);
 
     }
@@ -174,6 +212,19 @@ public class LoginTestTaskNegativeScenario {
                 .check(matches(withEffectiveVisibility(
                         ViewMatchers.Visibility.VISIBLE
                 )));
+    }
+	
+	/* This is a helper matcher method
+       - this method validates whether a matcher is currently visible on screen then returns 'true'
+	   - else , returns 'false'
+    */
+	public boolean isPresent(final Matcher<View> matcher){
+        try {
+            onView(matcher).check(matches(isDisplayed()));
+            return true;
+        } catch (NoMatchingViewException e) {
+            return false;
+        }
     }
 
 }
