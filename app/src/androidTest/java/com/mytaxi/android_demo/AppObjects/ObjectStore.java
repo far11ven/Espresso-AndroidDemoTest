@@ -23,5 +23,10 @@ public class ObjectStore {
 
     public final static Matcher<View> tv_USER_LOGGED =  withId(R.id.nav_username);
 
+    public final static Matcher<View> et_DRIVER_SEARCH = withId(R.id.textSearch);
+    public final static Matcher<View> tv_DRIVER_DDN =  withId(R.id.searchContainer);
+    public final static Matcher<View> tv_DRIVER_NAME =  withId(R.id.textViewDriverName);
+    public final static Matcher<View> btn_DRIVER_CALL =  withId(R.id.fab);
+
 
 }
