@@ -26,8 +26,6 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.view.Gravity;
 import android.view.View;
 
-import static com.mytaxi.android_demo.AppObjects.ObjectStore;
-
 import static org.junit.Assert.assertFalse;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
