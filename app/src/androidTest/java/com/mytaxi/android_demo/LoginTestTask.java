@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import android.support.test.filters.LargeTest;
-import android.os.SystemClock;
 
 import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.IdlingResource;
@@ -27,7 +26,7 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.view.Gravity;
 import android.view.View;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -98,7 +97,7 @@ public class LoginTestTask {
         onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
         onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN button to submit
 
-        assertTrue("Login Failure message is still displayed", isPresent(withText((R.string.message_login_fail))));  //Returns 'true' if message is not dispalyed
+        assertFalse("Login Failure message is still displayed", isPresent(withText((R.string.message_login_fail))));  //Returns 'true' if message is dispalyed
 
     }
 
