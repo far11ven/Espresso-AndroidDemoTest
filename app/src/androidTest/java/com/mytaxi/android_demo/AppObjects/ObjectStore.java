@@ -1,11 +1,13 @@
 package com.mytaxi.android_demo;
 
+import android.view.View;
+import org.hamcrest.Matcher;
+import android.support.test.espresso.matcher.ViewMatchers;
+
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import org.hamcrest.Matcher;
-import android.support.test.espresso.matcher.ViewMatchers;
-import static android.support.test.espresso.Espresso.onView;
+
 
 
 /*

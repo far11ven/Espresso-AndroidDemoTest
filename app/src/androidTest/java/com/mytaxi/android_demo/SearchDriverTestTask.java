@@ -107,18 +107,18 @@ public class SearchDriverTestTask {
         IdlingRegistry.getInstance().unregister(mainActivityIdlingResource);  // ending wait for MainActivity
 
         // Verify that logged in USER is same for which credentials were provided during login
-        onView(withId(R.id.nav_username)).check(matches(withText(Constants.USER_NAME)));
+        onView(ObjectStore.tv_USER_LOGGED).check(matches(withText(Constants.USER_NAME)));
 
-        onView(withId(R.id.drawer_layout))
+        onView(ObjectStore.left_DRAWER)
                 .perform(DrawerActions.close());       // closes the left drawer
 
-        onView(withId(R.id.textSearch)).check(matches(isEnabled())).perform(click());        //check if enabled & click to search driver
-        onView(withId(R.id.textSearch)).perform(typeText(Constants.STRING_TO_BE_SEARCHED)) ; //enter text "sa" search text
+        onView(ObjectStore.et_DRIVER_SEARCH).check(matches(isEnabled())).perform(click());        //check if enabled & click to search driver
+        onView(ObjectStore.et_DRIVER_SEARCH).perform(typeText(Constants.STRING_TO_BE_SEARCHED)) ; //enter text "sa" search text
 
         //wait for drop-down to open up
         IdlingRegistry.getInstance().register(driverSearchIdlingResource);
 
-        onView(withId(R.id.searchContainer)).check(matches(isDisplayed()));                  //verify dropdown searchContainer field is displayed on view
+        onView(ObjectStore.tv_DRIVER_DDN).check(matches(isDisplayed()));                  //verify dropdown searchContainer field is displayed on view
 
         
         //check & click if DRIVER NAME is present in dropdown
@@ -130,10 +130,10 @@ public class SearchDriverTestTask {
 		IdlingRegistry.getInstance().unregister(driverSearchIdlingResource);
 
         //Verify on driver profile screen DRIVER NAME is same as the one selected from dropdown
-        onView(withId(R.id.textViewDriverName)).check(matches(withText(Constants.DRIVER_NAME)));
+        onView(ObjectStore.tv_DRIVER_NAME).check(matches(withText(Constants.DRIVER_NAME)));
 
         //Click on 'Call' button
-        onView(withId(R.id.fab)).perform(click());
+        onView(ObjectStore.btn_DRIVER_CALL).perform(click());
 
         //validates that an intent for "dialer" activity has been sent after clicking "Call" button icon
         intended(toPackage("com.android.dialer"));
