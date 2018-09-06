@@ -21,6 +21,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.mytaxi.android_demo.ObjectStore;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -79,26 +81,26 @@ public class SearchDriverTestTask {
     @Test
     public void performLoginAndCallSearchedDriverTest(){
         //checking if Username input field is present & enabled before entering text
-        onView(withId(R.id.edt_username)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_username)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_username)).perform(click()) ;
-        onView(withId(R.id.edt_username)).perform(typeText(Constants.USER_NAME));  //enter in username field
+        onView(ObjectStore.et_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.et_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.et_USERNAME).perform(click()) ;
+        onView(ObjectStore.et_USERNAME).perform(typeText(Constants.USER_NAME));  //enter in username field
 
         //checking if password input field is present & enabled before entering text
-        onView(withId(R.id.edt_password)).check(matches(isDisplayed()));
-        onView(withId(R.id.edt_password)).check(matches(isEnabled()));
-        onView(withId(R.id.edt_password)).perform(click()) ;
-        onView(withId(R.id.edt_password)).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
+        onView(ObjectStore.et_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.et_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.et_PASSWORD).perform(click()) ;
+        onView(ObjectStore.et_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
 
 
         // to check if LOGIN button is displayed and can be clicked
-        onView(withId(R.id.btn_login)).check(matches(isDisplayed())).check(matches(isClickable()));
-        onView(withId(R.id.btn_login)).perform(click()) ; // click LOGIN to submit
+        onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable()));
+        onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN to submit
 
         //Waiting for MainActivity to open up
         IdlingRegistry.getInstance().register(mainActivityIdlingResource);
 
-        onView(withId(R.id.drawer_layout))
+        onView(ObjectStore.left_DRAWER)
                 .check(matches(isClosed(Gravity.LEFT))) // To check Left Drawer based on that it is currently closed.
                 .perform(DrawerActions.open());         // open drawer
 

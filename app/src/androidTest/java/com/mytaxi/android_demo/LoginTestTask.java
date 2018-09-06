@@ -83,16 +83,16 @@ public class LoginTestTask {
     public void performLoginTestWithValidCredentials(){
 
         //checking if Username input field is present & enabled before entering text
-        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));
-        onView(ObjectStore.tv_USERNAME).check(matches(isEnabled()));
-        onView(ObjectStore.tv_USERNAME).perform(click()) ;
-        onView(ObjectStore.tv_USERNAME).perform(typeText(Constants.USER_NAME));   // enter in username
+        onView(ObjectStore.et_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.et_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.et_USERNAME).perform(click()) ;
+        onView(ObjectStore.et_USERNAME).perform(typeText(Constants.USER_NAME));   // enter in username
 
         //checking if password input field is present & enabled before entering text
-        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));
-        onView(ObjectStore.tv_PASSWORD).check(matches(isEnabled()));
-        onView(ObjectStore.tv_PASSWORD).perform(click()) ;
-        onView(ObjectStore.tv_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
+        onView(ObjectStore.et_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.et_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.et_PASSWORD).perform(click()) ;
+        onView(ObjectStore.et_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  //enter in password field and close the keyboard
 
 
         // to check if LOGIN button is displayed and can be clicked
@@ -111,9 +111,9 @@ public class LoginTestTask {
     @Test
     public void performLoginTestWithBlankValues(){
 
-        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));  //checking if username input field is present
+        onView(ObjectStore.et_USERNAME).check(matches(isDisplayed()));  //checking if username input field is present
 
-        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));     //checking if password input field is present
+        onView(ObjectStore.et_PASSWORD).check(matches(isDisplayed()));     //checking if password input field is present
 
         onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
         onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN button to submit [Although LOGIN button should be disabled unless Username & Password fields have value]
@@ -135,17 +135,17 @@ public class LoginTestTask {
     @Test
     public void performLoginTestWithInValidUsername(){
         //checking if Username input field is present & enabled before entering text
-        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));
-        onView(ObjectStore.tv_USERNAME).check(matches(isEnabled()));
-        onView(ObjectStore.tv_USERNAME).perform(click()) ;
-        onView(ObjectStore.tv_USERNAME).perform(typeText(Constants.SOME_INVALID_TEXT));   // enter in username field
+        onView(ObjectStore.et_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.et_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.et_USERNAME).perform(click()) ;
+        onView(ObjectStore.et_USERNAME).perform(typeText(Constants.SOME_INVALID_TEXT));   // enter in username field
 
 
         //checking if password input field is present & enabled before entering text
-        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));
-        onView(ObjectStore.tv_PASSWORD).check(matches(isEnabled()));
-        onView(ObjectStore.tv_PASSWORD).perform(click()) ;
-        onView(ObjectStore.tv_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  // enter in password field & close keyboard
+        onView(ObjectStore.et_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.et_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.et_PASSWORD).perform(click()) ;
+        onView(ObjectStore.et_PASSWORD).perform(typeText(Constants.USER_PASSWORD), closeSoftKeyboard());  // enter in password field & close keyboard
 
         onView(ObjectStore.btn_LOGIN).check(matches(isDisplayed())).check(matches(isClickable())); // to check if LOGIN button is displayed and can be clicked
         onView(ObjectStore.btn_LOGIN).perform(click()) ; // click LOGIN button to submit
@@ -167,17 +167,17 @@ public class LoginTestTask {
     @Test
     public void performLoginTestWithInValidPassword(){
         //checking if Username input field is present & enabled before entering text
-        onView(ObjectStore.tv_USERNAME).check(matches(isDisplayed()));
-        onView(ObjectStore.tv_USERNAME).check(matches(isEnabled()));
-        onView(ObjectStore.tv_USERNAME).perform(click()) ;
-        onView(ObjectStore.tv_USERNAME).perform(typeText(Constants.USER_NAME ));   // enter in username field
+        onView(ObjectStore.et_USERNAME).check(matches(isDisplayed()));
+        onView(ObjectStore.et_USERNAME).check(matches(isEnabled()));
+        onView(ObjectStore.et_USERNAME).perform(click()) ;
+        onView(ObjectStore.et_USERNAME).perform(typeText(Constants.USER_NAME ));   // enter in username field
 
 
         //checking if password input field is present & enabled before entering text
-        onView(ObjectStore.tv_PASSWORD).check(matches(isDisplayed()));
-        onView(ObjectStore.tv_PASSWORD).check(matches(isEnabled()));
-        onView(ObjectStore.tv_PASSWORD).perform(click()) ;
-        onView(ObjectStore.tv_PASSWORD).perform(typeText(Constants.SOME_INVALID_TEXT), closeSoftKeyboard());  // enter in password field & close keyboard
+        onView(ObjectStore.et_PASSWORD).check(matches(isDisplayed()));
+        onView(ObjectStore.et_PASSWORD).check(matches(isEnabled()));
+        onView(ObjectStore.et_PASSWORD).perform(click()) ;
+        onView(ObjectStore.et_PASSWORD).perform(typeText(Constants.SOME_INVALID_TEXT), closeSoftKeyboard());  // enter in password field & close keyboard
 
 
         // to check if LOGIN button is displayed and can be clicked
